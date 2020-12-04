@@ -19,7 +19,7 @@
  *  // Set the unit system, for example to SI (can be either 'SI' or 'IP')
  *  SetUnitSystem(SI);
  *  // Calculate the dew point temperature for a dry bulb temperature of 25 C and a relative humidity of 80%
- *  double TDewPoint = GetTDewPointFromRelHum(25.0, 0.80);
+ *  float TDewPoint = GetTDewPointFromRelHum(25.0, 0.80);
  *  printf("%lg", TDewPoint);
  * 21.3094
  *
@@ -119,7 +119,7 @@ void Assert
 static enum UnitSystem PSYCHROLIB_UNITS = UNDEFINED;
 
 // Tolerance of temperature calculations
-static double PSYCHROLIB_TOLERANCE = 1.;
+static float PSYCHROLIB_TOLERANCE = 1.;
 
 // Set the system of units to use (SI or IP).
 // Note: this function *HAS TO BE CALLED* before the library can be used
@@ -170,22 +170,22 @@ int isIP                    // (o) 1 if IP, 0 if SI, error otherwise
 // Utility function to convert temperature to degree Rankine (°R)
 // given temperature in degree Fahrenheit (°F).
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 section 3
-double GetTRankineFromTFahrenheit(double T_F) { return T_F + ZERO_FAHRENHEIT_AS_RANKINE; }         /* exact */
+float GetTRankineFromTFahrenheit(float T_F) { return T_F + ZERO_FAHRENHEIT_AS_RANKINE; }         /* exact */
 
 // Utility function to convert temperature to degree Fahrenheit (°F)
 // given temperature in degree Rankine (°R).
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 section 3
-double GetTFahrenheitFromTRankine(double T_R) { return T_R - ZERO_FAHRENHEIT_AS_RANKINE; }        /* exact */
+float GetTFahrenheitFromTRankine(float T_R) { return T_R - ZERO_FAHRENHEIT_AS_RANKINE; }        /* exact */
 
 // Utility function to convert temperature to Kelvin (K)
 // given temperature in degree Celsius (°C).
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 section 3
-double GetTKelvinFromTCelsius(double T_C) { return T_C + ZERO_CELSIUS_AS_KELVIN; }                /* exact */
+float GetTKelvinFromTCelsius(float T_C) { return T_C + ZERO_CELSIUS_AS_KELVIN; }                /* exact */
 
 // Utility function to convert temperature to degree Celsius (°C)
 // given temperature in Kelvin (K).
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 section 3
-double GetTCelsiusFromTKelvin(double T_K) { return T_K - ZERO_CELSIUS_AS_KELVIN; }                /* exact */
+float GetTCelsiusFromTKelvin(float T_K) { return T_K - ZERO_CELSIUS_AS_KELVIN; }                /* exact */
 
 
 /******************************************************************************************************
@@ -194,13 +194,13 @@ double GetTCelsiusFromTKelvin(double T_K) { return T_K - ZERO_CELSIUS_AS_KELVIN;
 
 // Return wet-bulb temperature given dry-bulb temperature, dew-point temperature, and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1
-double GetTWetBulbFromTDewPoint // (o) Wet bulb temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetTWetBulbFromTDewPoint // (o) Wet bulb temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double HumRatio;
+  float HumRatio;
 
   ASSERT (TDewPoint <= TDryBulb, "Dew point temperature is above dry bulb temperature")
 
@@ -210,13 +210,13 @@ double GetTWetBulbFromTDewPoint // (o) Wet bulb temperature in °F [IP] or °C [
 
 // Return wet-bulb temperature given dry-bulb temperature, relative humidity, and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1
-double GetTWetBulbFromRelHum    // (o) Wet bulb temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double RelHum               // (i) Relative humidity [0-1]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetTWetBulbFromRelHum    // (o) Wet bulb temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float RelHum               // (i) Relative humidity [0-1]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double HumRatio;
+  float HumRatio;
 
   ASSERT (RelHum >= 0 && RelHum <= 1, "Relative humidity is outside range [0,1]")
 
@@ -226,12 +226,12 @@ double GetTWetBulbFromRelHum    // (o) Wet bulb temperature in °F [IP] or °C [
 
 // Return relative humidity given dry-bulb temperature and dew-point temperature.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 22
-double GetRelHumFromTDewPoint   // (o) Relative humidity [0-1]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
+float GetRelHumFromTDewPoint   // (o) Relative humidity [0-1]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
   )
 {
-  double VapPres, SatVapPres;
+  float VapPres, SatVapPres;
 
   ASSERT (TDewPoint <= TDryBulb, "Dew point temperature is above dry bulb temperature")
 
@@ -242,13 +242,13 @@ double GetRelHumFromTDewPoint   // (o) Relative humidity [0-1]
 
 // Return relative humidity given dry-bulb temperature, wet bulb temperature and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1
-double GetRelHumFromTWetBulb    // (o) Relative humidity [0-1]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetRelHumFromTWetBulb    // (o) Relative humidity [0-1]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double HumRatio;
+  float HumRatio;
 
   ASSERT (TWetBulb <= TDryBulb, "Wet bulb temperature is above dry bulb temperature")
 
@@ -258,12 +258,12 @@ double GetRelHumFromTWetBulb    // (o) Relative humidity [0-1]
 
 // Return dew-point temperature given dry-bulb temperature and relative humidity.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1
-double GetTDewPointFromRelHum   // (o) Dew Point temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double RelHum               // (i) Relative humidity [0-1]
+float GetTDewPointFromRelHum   // (o) Dew Point temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float RelHum               // (i) Relative humidity [0-1]
   )
 {
-  double VapPres;
+  float VapPres;
 
   ASSERT (RelHum >= 0 && RelHum <= 1, "Relative humidity is outside range [0,1]")
 
@@ -273,13 +273,13 @@ double GetTDewPointFromRelHum   // (o) Dew Point temperature in °F [IP] or °C 
 
 // Return dew-point temperature given dry-bulb temperature, wet-bulb temperature, and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1
-double GetTDewPointFromTWetBulb // (o) Dew Point temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetTDewPointFromTWetBulb // (o) Dew Point temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double HumRatio;
+  float HumRatio;
 
   ASSERT (TWetBulb <= TDryBulb, "Wet bulb temperature is above dry bulb temperature")
 
@@ -294,9 +294,9 @@ double GetTDewPointFromTWetBulb // (o) Dew Point temperature in °F [IP] or °C 
 
 // Return partial pressure of water vapor as a function of relative humidity and temperature.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 12, 22
-double GetVapPresFromRelHum     // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double RelHum               // (i) Relative humidity [0-1]
+float GetVapPresFromRelHum     // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float RelHum               // (i) Relative humidity [0-1]
   )
 {
   ASSERT (RelHum >= 0. && RelHum <= 1., "Relative humidity is outside range [0,1]")
@@ -306,9 +306,9 @@ double GetVapPresFromRelHum     // (o) Partial pressure of water vapor in moist 
 
 // Return relative humidity given dry-bulb temperature and vapor pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 12, 22
-double GetRelHumFromVapPres     // (o) Relative humidity [0-1]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double VapPres              // (i) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+float GetRelHumFromVapPres     // (o) Relative humidity [0-1]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float VapPres              // (i) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
   )
 {
   ASSERT (VapPres >= 0., "Partial pressure of water vapor in moist air is negative")
@@ -319,11 +319,11 @@ double GetRelHumFromVapPres     // (o) Relative humidity [0-1]
 // Helper function returning the derivative of the natural log of the saturation vapor pressure
 // as a function of dry-bulb temperature.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn. 5 & 6
-double dLnPws_        // (o) Derivative of natural log of vapor pressure of saturated air in Psi [IP] or Pa [SI]
-  ( double TDryBulb   // (i) Dry bulb temperature in °F [IP] or °C [SI]
+float dLnPws_        // (o) Derivative of natural log of vapor pressure of saturated air in Psi [IP] or Pa [SI]
+  ( float TDryBulb   // (i) Dry bulb temperature in °F [IP] or °C [SI]
   )
 {
-  double dLnPws, T;
+  float dLnPws, T;
 
   if (isIP())
   {
@@ -361,13 +361,13 @@ double dLnPws_        // (o) Derivative of natural log of vapor pressure of satu
 // pressure as a function of temperature, which is a very smooth function
 // Convergence is usually achieved in 3 to 5 iterations.
 // TDryBulb is not really needed here, just used for convenience.
-double GetTDewPointFromVapPres  // (o) Dew Point temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double VapPres              // (i) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+float GetTDewPointFromVapPres  // (o) Dew Point temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float VapPres              // (i) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
   )
 {
   // Bounds function of the system of units
-  double BOUNDS[2];              // Domain of validity of the equations
+  float BOUNDS[2];              // Domain of validity of the equations
 
   if (isIP())
   {
@@ -386,11 +386,11 @@ double GetTDewPointFromVapPres  // (o) Dew Point temperature in °F [IP] or °C 
 
   // We use NR to approximate the solution.
   // First guess
-  double TDewPoint = TDryBulb;      // Calculated value of dew point temperatures, solved for iteratively in °F [IP] or °C [SI]
-  double lnVP = log(VapPres);       // Natural logarithm of partial pressure of water vapor pressure in moist air
+  float TDewPoint = TDryBulb;      // Calculated value of dew point temperatures, solved for iteratively in °F [IP] or °C [SI]
+  float lnVP = log(VapPres);       // Natural logarithm of partial pressure of water vapor pressure in moist air
 
-  double TDewPoint_iter;            // Value of TDewPoint used in NR calculation
-  double lnVP_iter;                 // Value of log of vapor water pressure used in NR calculation
+  float TDewPoint_iter;            // Value of TDewPoint used in NR calculation
+  float lnVP_iter;                 // Value of log of vapor water pressure used in NR calculation
   int index = 1;
 
   do
@@ -399,7 +399,7 @@ double GetTDewPointFromVapPres  // (o) Dew Point temperature in °F [IP] or °C 
     lnVP_iter = log(GetSatVapPres(TDewPoint_iter));
 
     // Derivative of function, calculated analytically
-    double d_lnVP = dLnPws_(TDewPoint_iter);
+    float d_lnVP = dLnPws_(TDewPoint_iter);
 
     // New estimate, bounded by domain of validity of eqn. 5 and 6
     TDewPoint = TDewPoint_iter - (lnVP_iter - lnVP) / d_lnVP;
@@ -416,8 +416,8 @@ double GetTDewPointFromVapPres  // (o) Dew Point temperature in °F [IP] or °C 
 
 // Return vapor pressure given dew point temperature.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn. 36
-double GetVapPresFromTDewPoint  // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  ( double TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
+float GetVapPresFromTDewPoint  // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  ( float TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
   )
 {
   return GetSatVapPres(TDewPoint);
@@ -430,15 +430,15 @@ double GetVapPresFromTDewPoint  // (o) Partial pressure of water vapor in moist 
 
 // Return wet-bulb temperature given dry-bulb temperature, humidity ratio, and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 33 and 35 solved for Tstar
-double GetTWetBulbFromHumRatio  // (o) Wet bulb temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetTWetBulbFromHumRatio  // (o) Wet bulb temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
   // Declarations
-  double Wstar;
-  double TDewPoint, TWetBulb, TWetBulbSup, TWetBulbInf, BoundedHumRatio;
+  float Wstar;
+  float TDewPoint, TWetBulb, TWetBulbSup, TWetBulbInf, BoundedHumRatio;
   int index = 1;
 
   ASSERT (HumRatio >= 0., "Humidity ratio is negative")
@@ -476,14 +476,14 @@ double GetTWetBulbFromHumRatio  // (o) Wet bulb temperature in °F [IP] or °C [
 
 // Return humidity ratio given dry-bulb temperature, wet-bulb temperature, and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 33 and 35
-double GetHumRatioFromTWetBulb  // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetHumRatioFromTWetBulb  // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double Wsstar;
-  double HumRatio = INVALID;
+  float Wsstar;
+  float HumRatio = INVALID;
 
   ASSERT (TWetBulb <= TDryBulb, "Wet bulb temperature is above dry bulb temperature")
 
@@ -513,13 +513,13 @@ double GetHumRatioFromTWetBulb  // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [I
 
 // Return humidity ratio given dry-bulb temperature, relative humidity, and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1
-double GetHumRatioFromRelHum    // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double RelHum               // (i) Relative humidity [0-1]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetHumRatioFromRelHum    // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float RelHum               // (i) Relative humidity [0-1]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double VapPres;
+  float VapPres;
 
   ASSERT (RelHum >= 0. && RelHum <= 1., "Relative humidity is outside range [0,1]")
 
@@ -529,13 +529,13 @@ double GetHumRatioFromRelHum    // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [I
 
 // Return relative humidity given dry-bulb temperature, humidity ratio, and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1
-double GetRelHumFromHumRatio    // (o) Relative humidity [0-1]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetRelHumFromHumRatio    // (o) Relative humidity [0-1]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double VapPres;
+  float VapPres;
 
   ASSERT (HumRatio >= 0., "Humidity ratio is negative")
 
@@ -545,12 +545,12 @@ double GetRelHumFromHumRatio    // (o) Relative humidity [0-1]
 
 // Return humidity ratio given dew-point temperature and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1
-double GetHumRatioFromTDewPoint // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetHumRatioFromTDewPoint // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double VapPres;
+  float VapPres;
 
   VapPres = GetSatVapPres(TDewPoint);
   return GetHumRatioFromVapPres(VapPres, Pressure);
@@ -558,13 +558,13 @@ double GetHumRatioFromTDewPoint // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [I
 
 // Return dew-point temperature given dry-bulb temperature, humidity ratio, and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1
-double GetTDewPointFromHumRatio // (o) Dew Point temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetTDewPointFromHumRatio // (o) Dew Point temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double VapPres;
+  float VapPres;
 
   ASSERT (HumRatio >= 0., "Humidity ratio is negative")
 
@@ -579,12 +579,12 @@ double GetTDewPointFromHumRatio // (o) Dew Point temperature in °F [IP] or °C 
 
 // Return humidity ratio given water vapor pressure and atmospheric pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 20
-double GetHumRatioFromVapPres   // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double VapPres              // (i) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetHumRatioFromVapPres   // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float VapPres              // (i) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double HumRatio;
+  float HumRatio;
 
   ASSERT (VapPres >= 0., "Partial pressure of water vapor in moist air is negative")
 
@@ -596,12 +596,12 @@ double GetHumRatioFromVapPres   // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [I
 
 // Return vapor pressure given humidity ratio and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 20 solved for pw
-double GetVapPresFromHumRatio   // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  ( double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetVapPresFromHumRatio   // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  ( float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double VapPres, BoundedHumRatio;
+  float VapPres, BoundedHumRatio;
 
   ASSERT (HumRatio >= 0., "Humidity ratio is negative")
   BoundedHumRatio = max(HumRatio, MIN_HUM_RATIO);
@@ -617,11 +617,11 @@ double GetVapPresFromHumRatio   // (o) Partial pressure of water vapor in moist 
 
 // Return the specific humidity from humidity ratio (aka mixing ratio)
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 9b
-double GetSpecificHumFromHumRatio // (o) Specific humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double HumRatio               // (i) Humidity ratio in lb_H₂O lb_Dry_Air⁻¹ [IP] or kg_H₂O kg_Dry_Air⁻¹ [SI]
+float GetSpecificHumFromHumRatio // (o) Specific humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float HumRatio               // (i) Humidity ratio in lb_H₂O lb_Dry_Air⁻¹ [IP] or kg_H₂O kg_Dry_Air⁻¹ [SI]
   )
 {
-  double BoundedHumRatio;
+  float BoundedHumRatio;
 
   ASSERT (HumRatio >= 0., "Humidity ratio is negative")
   BoundedHumRatio = max(HumRatio, MIN_HUM_RATIO);
@@ -631,11 +631,11 @@ double GetSpecificHumFromHumRatio // (o) Specific humidity ratio in lb_H₂O lb_
 
 // Return the humidity ratio (aka mixing ratio) from specific humidity
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 9b (solved for humidity ratio)
-double GetHumRatioFromSpecificHum // (o) Humidity ratio in lb_H₂O lb_Dry_Air⁻¹ [IP] or kg_H₂O kg_Dry_Air⁻¹ [SI]
-  ( double SpecificHum            // (i) Specific humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+float GetHumRatioFromSpecificHum // (o) Humidity ratio in lb_H₂O lb_Dry_Air⁻¹ [IP] or kg_H₂O kg_Dry_Air⁻¹ [SI]
+  ( float SpecificHum            // (i) Specific humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
   )
 {
-  double HumRatio;
+  float HumRatio;
 
   ASSERT (SpecificHum >= 0.0 && SpecificHum < 1.0, "Specific humidity is outside range [0, 1)")
 
@@ -652,8 +652,8 @@ double GetHumRatioFromSpecificHum // (o) Humidity ratio in lb_H₂O lb_Dry_Air�
 
 // Return dry-air enthalpy given dry-bulb temperature.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn. 28
-double GetDryAirEnthalpy        // (o) Dry air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+float GetDryAirEnthalpy        // (o) Dry air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
   )
 {
   if (isIP())
@@ -667,9 +667,9 @@ double GetDryAirEnthalpy        // (o) Dry air enthalpy in Btu lb⁻¹ [IP] or J
 // Notes: eqn 14 for the perfect gas relationship for dry air.
 // Eqn 1 for the universal gas constant.
 // The factor 144 in IP is for the conversion of Psi = lb in⁻² to lb ft⁻².
-double GetDryAirDensity         // (o) Dry air density in lb ft⁻³ [IP] or kg m⁻³ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetDryAirDensity         // (o) Dry air density in lb ft⁻³ [IP] or kg m⁻³ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
   if (isIP())
@@ -683,9 +683,9 @@ double GetDryAirDensity         // (o) Dry air density in lb ft⁻³ [IP] or kg 
 // Notes: eqn 14 for the perfect gas relationship for dry air.
 // Eqn 1 for the universal gas constant.
 // The factor 144 in IP is for the conversion of Psi = lb in⁻² to lb ft⁻².
-double GetDryAirVolume          // (o) Dry air volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetDryAirVolume          // (o) Dry air volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
   if (isIP())
@@ -697,12 +697,12 @@ double GetDryAirVolume          // (o) Dry air volume ft³ lb⁻¹ [IP] or in m�
 // Return dry bulb temperature from enthalpy and humidity ratio.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 30.
 // Notes: based on the `GetMoistAirEnthalpy` function, rearranged for temperature.
-double GetTDryBulbFromEnthalpyAndHumRatio  // (o) Dry-bulb temperature in °F [IP] or °C [SI]
-  ( double MoistAirEnthalpy                // (i) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹
-  , double HumRatio                        // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+float GetTDryBulbFromEnthalpyAndHumRatio  // (o) Dry-bulb temperature in °F [IP] or °C [SI]
+  ( float MoistAirEnthalpy                // (i) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹
+  , float HumRatio                        // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
   )
 {
-  double BoundedHumRatio;
+  float BoundedHumRatio;
 
   ASSERT (HumRatio >= 0., "Humidity ratio is negative")
   BoundedHumRatio = max(HumRatio, MIN_HUM_RATIO);
@@ -716,12 +716,12 @@ double GetTDryBulbFromEnthalpyAndHumRatio  // (o) Dry-bulb temperature in °F [I
 // Return humidity ratio from enthalpy and dry-bulb temperature.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 30.
 // Notes: based on the `GetMoistAirEnthalpy` function, rearranged for humidity ratio.
-double GetHumRatioFromEnthalpyAndTDryBulb  // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double MoistAirEnthalpy                // (i) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹
-  , double TDryBulb                        // (i) Dry-bulb temperature in °F [IP] or °C [SI]
+float GetHumRatioFromEnthalpyAndTDryBulb  // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float MoistAirEnthalpy                // (i) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹
+  , float TDryBulb                        // (i) Dry-bulb temperature in °F [IP] or °C [SI]
   )
 {
-  double HumRatio;
+  float HumRatio;
   if (isIP())
     HumRatio = (MoistAirEnthalpy - 0.240 * TDryBulb) / (1061.0 + 0.444 * TDryBulb);
   else
@@ -744,11 +744,11 @@ double GetHumRatioFromEnthalpyAndTDryBulb  // (o) Humidity ratio in lb_H₂O lb_
 // the discontinuity vanishes. It is essential to use the triple point of water otherwise function
 // GetTDewPointFromVapPres, which inverts the present function, does not converge properly around
 // the freezing point.
-double GetSatVapPres            // (o) Vapor Pressure of saturated air in Psi [IP] or Pa [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+float GetSatVapPres            // (o) Vapor Pressure of saturated air in Psi [IP] or Pa [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
   )
 {
-  double LnPws, T;
+  float LnPws, T;
 
   if (isIP())
   {
@@ -782,12 +782,12 @@ double GetSatVapPres            // (o) Vapor Pressure of saturated air in Psi [I
 
 // Return humidity ratio of saturated air given dry-bulb temperature and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 36, solved for W
-double GetSatHumRatio           // (o) Humidity ratio of saturated air in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetSatHumRatio           // (o) Humidity ratio of saturated air in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double SatVaporPres, SatHumRatio;
+  float SatVaporPres, SatHumRatio;
 
   SatVaporPres = GetSatVapPres(TDryBulb);
   SatHumRatio = 0.621945 * SatVaporPres / (Pressure - SatVaporPres);
@@ -798,9 +798,9 @@ double GetSatHumRatio           // (o) Humidity ratio of saturated air in lb_H�
 
 // Return saturated air enthalpy given dry-bulb temperature and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1
-double GetSatAirEnthalpy        // (o) Saturated air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetSatAirEnthalpy        // (o) Saturated air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
   return GetMoistAirEnthalpy(TDryBulb, GetSatHumRatio(TDryBulb, Pressure));
@@ -812,13 +812,13 @@ double GetSatAirEnthalpy        // (o) Saturated air enthalpy in Btu lb⁻¹ [IP
 
 // Return Vapor pressure deficit given dry-bulb temperature, humidity ratio, and pressure.
 // Reference: see Oke (1987) eqn. 2.13a
-double GetVaporPressureDeficit  // (o) Vapor pressure deficit in Psi [IP] or Pa [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetVaporPressureDeficit  // (o) Vapor pressure deficit in Psi [IP] or Pa [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double RelHum;
+  float RelHum;
 
   ASSERT (HumRatio >= 0., "Humidity ratio is negative")
 
@@ -830,13 +830,13 @@ double GetVaporPressureDeficit  // (o) Vapor pressure deficit in Psi [IP] or Pa 
 // at the same temperature and pressure) given dry-bulb temperature, humidity ratio, and atmospheric pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2009) ch. 1 eqn. 12
 // Notes: the definition is absent from the 2017 Handbook
-double GetDegreeOfSaturation    // (o) Degree of saturation []
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetDegreeOfSaturation    // (o) Degree of saturation []
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double BoundedHumRatio;
+  float BoundedHumRatio;
 
   ASSERT (HumRatio >= 0., "Humidity ratio is negative")
   BoundedHumRatio = max(HumRatio, MIN_HUM_RATIO);
@@ -846,12 +846,12 @@ double GetDegreeOfSaturation    // (o) Degree of saturation []
 
 // Return moist air enthalpy given dry-bulb temperature and humidity ratio.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn. 30
-double GetMoistAirEnthalpy      // (o) Moist Air Enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+float GetMoistAirEnthalpy      // (o) Moist Air Enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
   )
 {
-  double BoundedHumRatio;
+  float BoundedHumRatio;
 
   ASSERT (HumRatio >= 0., "Humidity ratio is negative")
   BoundedHumRatio = max(HumRatio, MIN_HUM_RATIO);
@@ -866,13 +866,13 @@ double GetMoistAirEnthalpy      // (o) Moist Air Enthalpy in Btu lb⁻¹ [IP] or
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn. 26
 // Notes: in IP units, R_DA_IP / 144 equals 0.370486 which is the coefficient appearing in eqn 26.
 // The factor 144 is for the conversion of Psi = lb in⁻² to lb ft⁻².
-double GetMoistAirVolume        // (o) Specific Volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetMoistAirVolume        // (o) Specific Volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double BoundedHumRatio;
+  float BoundedHumRatio;
 
   ASSERT (HumRatio >= 0., "Humidity ratio is negative")
   BoundedHumRatio = max(HumRatio, MIN_HUM_RATIO);
@@ -890,13 +890,13 @@ double GetMoistAirVolume        // (o) Specific Volume ft³ lb⁻¹ [IP] or in m
 // In IP units, R_DA_IP / 144 equals 0.370486 which is the coefficient appearing in eqn 26
 // The factor 144 is for the conversion of Psi = lb in⁻² to lb ft⁻².
 // Based on the `GetMoistAirVolume` function, rearranged for dry-bulb temperature.
-double GetTDryBulbFromMoistAirVolumeAndHumRatio   // (o) Dry-bulb temperature in °F [IP] or °C [SI]
-  ( double MoistAirVolume                         // (i) Specific volume of moist air in ft³ lb⁻¹ of dry air [IP] or in m³ kg⁻¹ of dry air [SI]
-  , double HumRatio                               // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure                               // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetTDryBulbFromMoistAirVolumeAndHumRatio   // (o) Dry-bulb temperature in °F [IP] or °C [SI]
+  ( float MoistAirVolume                         // (i) Specific volume of moist air in ft³ lb⁻¹ of dry air [IP] or in m³ kg⁻¹ of dry air [SI]
+  , float HumRatio                               // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure                               // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double BoundedHumRatio;
+  float BoundedHumRatio;
 
   ASSERT (HumRatio >= 0., "Humidity ratio is negative")
   BoundedHumRatio = max(HumRatio, MIN_HUM_RATIO);
@@ -909,13 +909,13 @@ double GetTDryBulbFromMoistAirVolumeAndHumRatio   // (o) Dry-bulb temperature in
 
 // Return moist air density given humidity ratio, dry bulb temperature, and pressure.
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn. 11
-double GetMoistAirDensity       // (o) Moist air density in lb ft⁻³ [IP] or kg m⁻³ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetMoistAirDensity       // (o) Moist air density in lb ft⁻³ [IP] or kg m⁻³ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   )
 {
-  double BoundedHumRatio;
+  float BoundedHumRatio;
 
   ASSERT (HumRatio >= 0., "Humidity ratio is negative")
   BoundedHumRatio = max(HumRatio, MIN_HUM_RATIO);
@@ -930,11 +930,11 @@ double GetMoistAirDensity       // (o) Moist air density in lb ft⁻³ [IP] or k
 
 // Return standard atmosphere barometric pressure, given the elevation (altitude).
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 3
-double GetStandardAtmPressure   // (o) Standard atmosphere barometric pressure in Psi [IP] or Pa [SI]
-  ( double Altitude             // (i) Altitude in ft [IP] or m [SI]
+float GetStandardAtmPressure   // (o) Standard atmosphere barometric pressure in Psi [IP] or Pa [SI]
+  ( float Altitude             // (i) Altitude in ft [IP] or m [SI]
   )
 {
-  double Pressure;
+  float Pressure;
   if (isIP())
     Pressure = 14.696 * pow(1. - 6.8754e-06 * Altitude, 5.2559);
   else
@@ -944,11 +944,11 @@ double GetStandardAtmPressure   // (o) Standard atmosphere barometric pressure i
 
 // Return standard atmosphere temperature, given the elevation (altitude).
 // Reference: ASHRAE Handbook - Fundamentals (2017) ch. 1 eqn 4
-double GetStandardAtmTemperature // (o) Standard atmosphere dry bulb temperature in °F [IP] or °C [SI]
-  ( double Altitude              // (i) Altitude in ft [IP] or m [SI]
+float GetStandardAtmTemperature // (o) Standard atmosphere dry bulb temperature in °F [IP] or °C [SI]
+  ( float Altitude              // (i) Altitude in ft [IP] or m [SI]
   )
  {
-  double Temperature;
+  float Temperature;
   if (isIP())
     Temperature = 59. - 0.00356620 * Altitude;
   else
@@ -962,13 +962,13 @@ double GetStandardAtmTemperature // (o) Standard atmosphere dry bulb temperature
 // Brooks/Cole 2000, ch. 1.
 // Notes: the standard procedure for the US is to use for TDryBulb the average
 // of the current station temperature and the station temperature from 12 hours ago.
-double GetSeaLevelPressure   // (o) Sea level barometric pressure in Psi [IP] or Pa [SI]
-  ( double StnPressure       // (i) Observed station pressure in Psi [IP] or Pa [SI]
-  , double Altitude          // (i) Altitude above sea level in ft [IP] or m [SI]
-  , double TDryBulb          // (i) Dry bulb temperature ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
+float GetSeaLevelPressure   // (o) Sea level barometric pressure in Psi [IP] or Pa [SI]
+  ( float StnPressure       // (i) Observed station pressure in Psi [IP] or Pa [SI]
+  , float Altitude          // (i) Altitude above sea level in ft [IP] or m [SI]
+  , float TDryBulb          // (i) Dry bulb temperature ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
   )
 {
-  double TColumn, H;
+  float TColumn, H;
   if (isIP())
   {
     // Calculate average temperature in column of air, assuming a lapse rate
@@ -989,17 +989,17 @@ double GetSeaLevelPressure   // (o) Sea level barometric pressure in Psi [IP] or
   }
 
   // Calculate the sea level pressure
-  double SeaLevelPressure = StnPressure * exp(Altitude / H);
+  float SeaLevelPressure = StnPressure * exp(Altitude / H);
   return SeaLevelPressure;
 }
 
 // Return station pressure from sea level pressure
 // Reference: see 'GetSeaLevelPressure'
 // Notes: this function is just the inverse of 'GetSeaLevelPressure'.
-double GetStationPressure    // (o) Station pressure in Psi [IP] or Pa [SI]
-  ( double SeaLevelPressure  // (i) Sea level barometric pressure in Psi [IP] or Pa [SI]
-  , double Altitude          // (i) Altitude above sea level in ft [IP] or m [SI]
-  , double TDryBulb          // (i) Dry bulb temperature in °F [IP] or °C [SI]
+float GetStationPressure    // (o) Station pressure in Psi [IP] or Pa [SI]
+  ( float SeaLevelPressure  // (i) Sea level barometric pressure in Psi [IP] or Pa [SI]
+  , float Altitude          // (i) Altitude above sea level in ft [IP] or m [SI]
+  , float TDryBulb          // (i) Dry bulb temperature in °F [IP] or °C [SI]
   )
 {
   return SeaLevelPressure / GetSeaLevelPressure(1., Altitude, TDryBulb);
@@ -1014,16 +1014,16 @@ double GetStationPressure    // (o) Station pressure in Psi [IP] or Pa [SI]
 // vapour pressure, moist air enthalpy, moist air volume, and degree of saturation of air given
 // dry-bulb temperature, wet-bulb temperature, and pressure.
 void CalcPsychrometricsFromTWetBulb
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
-  , double *HumRatio            // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double *TDewPoint           // (o) Dew point temperature in °F [IP] or °C [SI]
-  , double *RelHum              // (o) Relative humidity [0-1]
-  , double *VapPres             // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  , double *MoistAirEnthalpy    // (o) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
-  , double *MoistAirVolume      // (o) Specific volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
-  , double *DegreeOfSaturation  // (o) Degree of saturation [unitless]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+  , float *HumRatio            // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float *TDewPoint           // (o) Dew point temperature in °F [IP] or °C [SI]
+  , float *RelHum              // (o) Relative humidity [0-1]
+  , float *VapPres             // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  , float *MoistAirEnthalpy    // (o) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
+  , float *MoistAirVolume      // (o) Specific volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
+  , float *DegreeOfSaturation  // (o) Degree of saturation [unitless]
 )
 {
   ASSERT(TWetBulb <= TDryBulb, "Wet bulb temperature is above dry bulb temperature")
@@ -1041,16 +1041,16 @@ void CalcPsychrometricsFromTWetBulb
 // vapour pressure, moist air enthalpy, moist air volume, and degree of saturation of air given
 // dry-bulb temperature, dew-point temperature, and pressure.
 void CalcPsychrometricsFromTDewPoint
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
-  , double *HumRatio            // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double *TWetBulb            // (o) Wet bulb temperature in °F [IP] or °C [SI]
-  , double *RelHum              // (o) Relative humidity [0-1]
-  , double *VapPres             // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  , double *MoistAirEnthalpy    // (o) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
-  , double *MoistAirVolume      // (o) Specific volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
-  , double *DegreeOfSaturation  // (o) Degree of saturation [unitless]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+  , float *HumRatio            // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float *TWetBulb            // (o) Wet bulb temperature in °F [IP] or °C [SI]
+  , float *RelHum              // (o) Relative humidity [0-1]
+  , float *VapPres             // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  , float *MoistAirEnthalpy    // (o) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
+  , float *MoistAirVolume      // (o) Specific volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
+  , float *DegreeOfSaturation  // (o) Degree of saturation [unitless]
 )
 {
   ASSERT(TDewPoint <= TDryBulb, "Dew point temperature is above dry bulb temperature")
@@ -1068,16 +1068,16 @@ void CalcPsychrometricsFromTDewPoint
 // vapour pressure, moist air enthalpy, moist air volume, and degree of saturation of air given
 // dry-bulb temperature, relative humidity and pressure.
 void CalcPsychrometricsFromRelHum
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double RelHum               // (i) Relative humidity [0-1]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
-  , double *HumRatio            // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double *TWetBulb            // (o) Wet bulb temperature in °F [IP] or °C [SI]
-  , double *TDewPoint           // (o) Dew point temperature in °F [IP] or °C [SI]
-  , double *VapPres             // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  , double *MoistAirEnthalpy    // (o) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
-  , double *MoistAirVolume      // (o) Specific volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
-  , double *DegreeOfSaturation  // (o) Degree of saturation [unitless]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float RelHum               // (i) Relative humidity [0-1]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+  , float *HumRatio            // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float *TWetBulb            // (o) Wet bulb temperature in °F [IP] or °C [SI]
+  , float *TDewPoint           // (o) Dew point temperature in °F [IP] or °C [SI]
+  , float *VapPres             // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  , float *MoistAirEnthalpy    // (o) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
+  , float *MoistAirVolume      // (o) Specific volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
+  , float *DegreeOfSaturation  // (o) Degree of saturation [unitless]
 )
 {
   ASSERT(RelHum >= 0 && RelHum <= 1, "Relative humidity is outside range [0,1]")
