@@ -24,51 +24,51 @@ enum UnitSystem GetUnitSystem  // (o) System of units (SI or IP)
  * Conversion between temperature units
  *****************************************************************************************************/
 
-double GetTRankineFromTFahrenheit(double T_F);
+float GetTRankineFromTFahrenheit(float T_F);
 
-double GetTFahrenheitFromTRankine(double T_R);
+float GetTFahrenheitFromTRankine(float T_R);
 
-double GetTKelvinFromTCelsius(double T_C);
+float GetTKelvinFromTCelsius(float T_C);
 
-double GetTCelsiusFromTKelvin(double T_K);
+float GetTCelsiusFromTKelvin(float T_K);
 
 
 /******************************************************************************************************
  * Conversions between dew point, wet bulb, and relative humidity
  *****************************************************************************************************/
 
-double GetTWetBulbFromTDewPoint // (o) Wet bulb temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetTWetBulbFromTDewPoint // (o) Wet bulb temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetTWetBulbFromRelHum    // (o) Wet bulb temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double RelHum               // (i) Relative humidity [0-1]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetTWetBulbFromRelHum    // (o) Wet bulb temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float RelHum               // (i) Relative humidity [0-1]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetRelHumFromTDewPoint   // (o) Relative humidity [0-1]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
+float GetRelHumFromTDewPoint   // (o) Relative humidity [0-1]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
   );
 
-double GetRelHumFromTWetBulb    // (o) Relative humidity [0-1]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetRelHumFromTWetBulb    // (o) Relative humidity [0-1]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetTDewPointFromRelHum   // (o) Dew Point temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double RelHum               // (i) Relative humidity [0-1]
+float GetTDewPointFromRelHum   // (o) Dew Point temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float RelHum               // (i) Relative humidity [0-1]
   );
 
-double GetTDewPointFromTWetBulb // (o) Dew Point temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetTDewPointFromTWetBulb // (o) Dew Point temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
 
@@ -76,23 +76,23 @@ double GetTDewPointFromTWetBulb // (o) Dew Point temperature in °F [IP] or °C 
  * Conversions between dew point, or relative humidity and vapor pressure
  *****************************************************************************************************/
 
-double GetVapPresFromRelHum     // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double RelHum               // (i) Relative humidity [0-1]
+float GetVapPresFromRelHum     // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float RelHum               // (i) Relative humidity [0-1]
   );
 
-double GetRelHumFromVapPres     // (o) Relative humidity [0-1]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double VapPres              // (i) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+float GetRelHumFromVapPres     // (o) Relative humidity [0-1]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float VapPres              // (i) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
   );
 
-double GetTDewPointFromVapPres  // (o) Dew Point temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double VapPres              // (i) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+float GetTDewPointFromVapPres  // (o) Dew Point temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float VapPres              // (i) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
   );
 
-double GetVapPresFromTDewPoint  // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  ( double TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
+float GetVapPresFromTDewPoint  // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  ( float TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
   );
 
 
@@ -100,39 +100,39 @@ double GetVapPresFromTDewPoint  // (o) Partial pressure of water vapor in moist 
  * Conversions from wet-bulb temperature, dew-point temperature, or relative humidity to humidity ratio
  *****************************************************************************************************/
 
-double GetTWetBulbFromHumRatio  // (o) Wet bulb temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetTWetBulbFromHumRatio  // (o) Wet bulb temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetHumRatioFromTWetBulb  // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetHumRatioFromTWetBulb  // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetHumRatioFromRelHum    // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double RelHum               // (i) Relative humidity [0-1]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetHumRatioFromRelHum    // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float RelHum               // (i) Relative humidity [0-1]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetRelHumFromHumRatio    // (o) Relative humidity [0-1]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetRelHumFromHumRatio    // (o) Relative humidity [0-1]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetHumRatioFromTDewPoint // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetHumRatioFromTDewPoint // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetTDewPointFromHumRatio // (o) Dew Point temperature in °F [IP] or °C [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetTDewPointFromHumRatio // (o) Dew Point temperature in °F [IP] or °C [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
 
@@ -140,14 +140,14 @@ double GetTDewPointFromHumRatio // (o) Dew Point temperature in °F [IP] or °C 
  * Conversions between humidity ratio and vapor pressure
  *****************************************************************************************************/
 
-double GetHumRatioFromVapPres   // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double VapPres              // (i) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetHumRatioFromVapPres   // (o) Humidity Ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float VapPres              // (i) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetVapPresFromHumRatio   // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  ( double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetVapPresFromHumRatio   // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  ( float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
 
@@ -155,12 +155,12 @@ double GetVapPresFromHumRatio   // (o) Partial pressure of water vapor in moist 
  * Conversions between humidity ratio and specific humidity
  *****************************************************************************************************/
 
-double GetSpecificHumFromHumRatio // (o) Specific humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double HumRatio               // (i) Humidity ratio in lb_H₂O lb_Dry_Air⁻¹ [IP] or kg_H₂O kg_Dry_Air⁻¹ [SI]
+float GetSpecificHumFromHumRatio // (o) Specific humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float HumRatio               // (i) Humidity ratio in lb_H₂O lb_Dry_Air⁻¹ [IP] or kg_H₂O kg_Dry_Air⁻¹ [SI]
   );
 
-double GetHumRatioFromSpecificHum // (o) Humidity ratio in lb_H₂O lb_Dry_Air⁻¹ [IP] or kg_H₂O kg_Dry_Air⁻¹ [SI]
-  ( double SpecificHum            // (i) Specific humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+float GetHumRatioFromSpecificHum // (o) Humidity ratio in lb_H₂O lb_Dry_Air⁻¹ [IP] or kg_H₂O kg_Dry_Air⁻¹ [SI]
+  ( float SpecificHum            // (i) Specific humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
   );
 
 
@@ -168,28 +168,28 @@ double GetHumRatioFromSpecificHum // (o) Humidity ratio in lb_H₂O lb_Dry_Air�
  * Dry Air Calculations
  *****************************************************************************************************/
 
-double GetDryAirEnthalpy                  // (o) Dry air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
-  ( double TDryBulb                       // (i) Dry bulb temperature in °F [IP] or °C [SI]
+float GetDryAirEnthalpy                  // (o) Dry air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
+  ( float TDryBulb                       // (i) Dry bulb temperature in °F [IP] or °C [SI]
   );
 
-double GetDryAirDensity                   // (o) Dry air density in lb ft⁻³ [IP] or kg m⁻³ [SI]
-  ( double TDryBulb                       // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double Pressure                       // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetDryAirDensity                   // (o) Dry air density in lb ft⁻³ [IP] or kg m⁻³ [SI]
+  ( float TDryBulb                       // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float Pressure                       // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetDryAirVolume                    // (o) Dry air volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
-  ( double TDryBulb                       // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double Pressure                       // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetDryAirVolume                    // (o) Dry air volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
+  ( float TDryBulb                       // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float Pressure                       // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetTDryBulbFromEnthalpyAndHumRatio    // (o) Dry-bulb temperature in °F [IP] or °C [SI]
-  ( double MoistAirEnthalpy                  // (i) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹
-  , double HumRatio                          // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+float GetTDryBulbFromEnthalpyAndHumRatio    // (o) Dry-bulb temperature in °F [IP] or °C [SI]
+  ( float MoistAirEnthalpy                  // (i) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹
+  , float HumRatio                          // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
   );
 
-double GetHumRatioFromEnthalpyAndTDryBulb  // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double MoistAirEnthalpy                // (i) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹
-  , double TDryBulb                        // (i) Dry-bulb temperature in °F [IP] or °C [SI]
+float GetHumRatioFromEnthalpyAndTDryBulb  // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float MoistAirEnthalpy                // (i) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹
+  , float TDryBulb                        // (i) Dry-bulb temperature in °F [IP] or °C [SI]
   );
 
 
@@ -197,57 +197,57 @@ double GetHumRatioFromEnthalpyAndTDryBulb  // (o) Humidity ratio in lb_H₂O lb_
  * Saturated Air Calculations
  *****************************************************************************************************/
 
-double GetSatVapPres            // (o) Vapor Pressure of saturated air in Psi [IP] or Pa [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+float GetSatVapPres            // (o) Vapor Pressure of saturated air in Psi [IP] or Pa [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
   );
 
-double GetSatHumRatio           // (o) Humidity ratio of saturated air in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetSatHumRatio           // (o) Humidity ratio of saturated air in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetSatAirEnthalpy        // (o) Saturated air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetSatAirEnthalpy        // (o) Saturated air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
 
 /******************************************************************************************************
  * Moist Air Calculations
  *****************************************************************************************************/
-double GetVaporPressureDeficit  // (o) Vapor pressure deficit in Psi [IP] or Pa [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetVaporPressureDeficit  // (o) Vapor pressure deficit in Psi [IP] or Pa [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetDegreeOfSaturation    // (o) Degree of saturation []
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetDegreeOfSaturation    // (o) Degree of saturation []
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetMoistAirEnthalpy      // (o) Moist Air Enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+float GetMoistAirEnthalpy      // (o) Moist Air Enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
   );
 
-double GetMoistAirVolume        // (o) Specific Volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetMoistAirVolume        // (o) Specific Volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetTDryBulbFromMoistAirVolumeAndHumRatio   // (o) Dry-bulb temperature in °F [IP] or °C [SI]
-  ( double MoistAirVolume                         // (i) Specific volume of moist air in ft³ lb⁻¹ of dry air [IP] or in m³ kg⁻¹ of dry air [SI]
-  , double HumRatio                               // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure                               // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetTDryBulbFromMoistAirVolumeAndHumRatio   // (o) Dry-bulb temperature in °F [IP] or °C [SI]
+  ( float MoistAirVolume                         // (i) Specific volume of moist air in ft³ lb⁻¹ of dry air [IP] or in m³ kg⁻¹ of dry air [SI]
+  , float HumRatio                               // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure                               // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
-double GetMoistAirDensity       // (o) Moist air density in lb ft⁻³ [IP] or kg m⁻³ [SI]
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+float GetMoistAirDensity       // (o) Moist air density in lb ft⁻³ [IP] or kg m⁻³ [SI]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float HumRatio             // (i) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
   );
 
 
@@ -255,24 +255,24 @@ double GetMoistAirDensity       // (o) Moist air density in lb ft⁻³ [IP] or k
  * Standard atmosphere
  *****************************************************************************************************/
 
-double GetStandardAtmPressure   // (o) Standard atmosphere barometric pressure in Psi [IP] or Pa [SI]
-  ( double Altitude             // (i) Altitude in ft [IP] or m [SI]
+float GetStandardAtmPressure   // (o) Standard atmosphere barometric pressure in Psi [IP] or Pa [SI]
+  ( float Altitude             // (i) Altitude in ft [IP] or m [SI]
   );
 
-double GetStandardAtmTemperature // (o) Standard atmosphere dry bulb temperature in °F [IP] or °C [SI]
-  ( double Altitude              // (i) Altitude in ft [IP] or m [SI]
+float GetStandardAtmTemperature // (o) Standard atmosphere dry bulb temperature in °F [IP] or °C [SI]
+  ( float Altitude              // (i) Altitude in ft [IP] or m [SI]
   );
 
-double GetSeaLevelPressure   // (o) Sea level barometric pressure in Psi [IP] or Pa [SI]
-  ( double StnPressure       // (i) Observed station pressure in Psi [IP] or Pa [SI]
-  , double Altitude          // (i) Altitude above sea level in ft [IP] or m [SI]
-  , double TDryBulb          // (i) Dry bulb temperature ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
+float GetSeaLevelPressure   // (o) Sea level barometric pressure in Psi [IP] or Pa [SI]
+  ( float StnPressure       // (i) Observed station pressure in Psi [IP] or Pa [SI]
+  , float Altitude          // (i) Altitude above sea level in ft [IP] or m [SI]
+  , float TDryBulb          // (i) Dry bulb temperature ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
   );
 
-double GetStationPressure    // (o) Station pressure in Psi [IP] or Pa [SI]
-  ( double SeaLevelPressure  // (i) Sea level barometric pressure in Psi [IP] or Pa [SI]
-  , double Altitude          // (i) Altitude above sea level in ft [IP] or m [SI]
-  , double TDryBulb          // (i) Dry bulb temperature in °F [IP] or °C [SI]
+float GetStationPressure    // (o) Station pressure in Psi [IP] or Pa [SI]
+  ( float SeaLevelPressure  // (i) Sea level barometric pressure in Psi [IP] or Pa [SI]
+  , float Altitude          // (i) Altitude above sea level in ft [IP] or m [SI]
+  , float TDryBulb          // (i) Dry bulb temperature in °F [IP] or °C [SI]
   );
 
 
@@ -281,40 +281,40 @@ double GetStationPressure    // (o) Station pressure in Psi [IP] or Pa [SI]
  *****************************************************************************************************/
 
 void CalcPsychrometricsFromTWetBulb
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
-  , double *HumRatio            // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double *TDewPoint           // (o) Dew point temperature in °F [IP] or °C [SI]
-  , double *RelHum              // (o) Relative humidity [0-1]
-  , double *VapPres             // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  , double *MoistAirEnthalpy    // (o) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
-  , double *MoistAirVolume      // (o) Specific volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
-  , double *DegreeOfSaturation  // (o) Degree of saturation [unitless]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TWetBulb             // (i) Wet bulb temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+  , float *HumRatio            // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float *TDewPoint           // (o) Dew point temperature in °F [IP] or °C [SI]
+  , float *RelHum              // (o) Relative humidity [0-1]
+  , float *VapPres             // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  , float *MoistAirEnthalpy    // (o) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
+  , float *MoistAirVolume      // (o) Specific volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
+  , float *DegreeOfSaturation  // (o) Degree of saturation [unitless]
   );
 
 void CalcPsychrometricsFromTDewPoint
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
-  , double *HumRatio            // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double *TWetBulb            // (o) Wet bulb temperature in °F [IP] or °C [SI]
-  , double *RelHum              // (o) Relative humidity [0-1]
-  , double *VapPres             // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  , double *MoistAirEnthalpy    // (o) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
-  , double *MoistAirVolume      // (o) Specific volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
-  , double *DegreeOfSaturation  // (o) Degree of saturation [unitless]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float TDewPoint            // (i) Dew point temperature in °F [IP] or °C [SI]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+  , float *HumRatio            // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float *TWetBulb            // (o) Wet bulb temperature in °F [IP] or °C [SI]
+  , float *RelHum              // (o) Relative humidity [0-1]
+  , float *VapPres             // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  , float *MoistAirEnthalpy    // (o) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
+  , float *MoistAirVolume      // (o) Specific volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
+  , float *DegreeOfSaturation  // (o) Degree of saturation [unitless]
   );
 
 void CalcPsychrometricsFromRelHum
-  ( double TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
-  , double RelHum               // (i) Relative humidity [0-1]
-  , double Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
-  , double *HumRatio            // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
-  , double *TWetBulb            // (o) Wet bulb temperature in °F [IP] or °C [SI]
-  , double *TDewPoint           // (o) Dew point temperature in °F [IP] or °C [SI]
-  , double *VapPres             // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
-  , double *MoistAirEnthalpy    // (o) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
-  , double *MoistAirVolume      // (o) Specific volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
-  , double *DegreeOfSaturation  // (o) Degree of saturation [unitless]
+  ( float TDryBulb             // (i) Dry bulb temperature in °F [IP] or °C [SI]
+  , float RelHum               // (i) Relative humidity [0-1]
+  , float Pressure             // (i) Atmospheric pressure in Psi [IP] or Pa [SI]
+  , float *HumRatio            // (o) Humidity ratio in lb_H₂O lb_Air⁻¹ [IP] or kg_H₂O kg_Air⁻¹ [SI]
+  , float *TWetBulb            // (o) Wet bulb temperature in °F [IP] or °C [SI]
+  , float *TDewPoint           // (o) Dew point temperature in °F [IP] or °C [SI]
+  , float *VapPres             // (o) Partial pressure of water vapor in moist air in Psi [IP] or Pa [SI]
+  , float *MoistAirEnthalpy    // (o) Moist air enthalpy in Btu lb⁻¹ [IP] or J kg⁻¹ [SI]
+  , float *MoistAirVolume      // (o) Specific volume ft³ lb⁻¹ [IP] or in m³ kg⁻¹ [SI]
+  , float *DegreeOfSaturation  // (o) Degree of saturation [unitless]
   );
